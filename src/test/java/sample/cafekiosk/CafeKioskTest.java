@@ -1,8 +1,6 @@
 package sample.cafekiosk;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import sample.cafekiosk.unit.CafeKiosk;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
@@ -78,6 +76,20 @@ class CafeKioskTest {
 	}
 
 	@Test
+	void calculateTotalPrice() {
+		CafeKiosk cafeKiosk = new CafeKiosk();
+		Americano americano = new Americano();
+		Latte latte = new Latte();
+
+		cafeKiosk.add(americano);
+		cafeKiosk.add(latte);
+
+		int totalPrice = cafeKiosk.calculateTotalPrice();
+
+		assertThat(totalPrice).isEqualTo(8500);
+	}
+
+	@Test
 	void createOrder() {
 		CafeKiosk cafeKiosk = new CafeKiosk();
 		Americano americano = new Americano();
@@ -112,4 +124,6 @@ class CafeKioskTest {
 				.isInstanceOf(IllegalArgumentException.class)
 				.hasMessage("주문 시간이 아닙니다.");
 	}
+
+
 }
