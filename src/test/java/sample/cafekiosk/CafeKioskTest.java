@@ -1,5 +1,6 @@
 package sample.cafekiosk;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.CafeKiosk;
 import sample.cafekiosk.unit.beverage.Americano;
@@ -22,11 +23,12 @@ class CafeKioskTest {
 	}
 
 	@Test
+	@DisplayName("음료 1개 추가하면 주문 목록에 담긴다.")
 	void add() {
 		CafeKiosk cafeKiosk = new CafeKiosk();
 		cafeKiosk.add(new Americano());
 
-		assertThat(cafeKiosk.getBeverages().size()).isEqualTo(1);
+		assertThat(cafeKiosk.getBeverages()).hasSize(1);
 		assertThat(cafeKiosk.getBeverages().get(0).getName()).isEqualTo("아메리카노");
 	}
 
@@ -58,7 +60,7 @@ class CafeKioskTest {
 
 		cafeKiosk.add(americano);
 		cafeKiosk.remove(americano);
-		assertThat(cafeKiosk.getBeverages().size()).isEqualTo(0);
+		assertThat(cafeKiosk.getBeverages()).hasSize(0);
 	}
 
 	@Test
@@ -69,14 +71,16 @@ class CafeKioskTest {
 
 		cafeKiosk.add(americano);
 		cafeKiosk.add(latte);
-		assertThat(cafeKiosk.getBeverages().size()).isEqualTo(2);
+		assertThat(cafeKiosk.getBeverages()).hasSize(2);
 
 		cafeKiosk.clear();
-		assertThat(cafeKiosk.getBeverages().size()).isEqualTo(0);
+		assertThat(cafeKiosk.getBeverages()).hasSize(0);
 	}
 
+	@DisplayName("주문 목록에 담긴 상품들의 총 금액을 계산할 수 있다.")
 	@Test
 	void calculateTotalPrice() {
+		// given
 		CafeKiosk cafeKiosk = new CafeKiosk();
 		Americano americano = new Americano();
 		Latte latte = new Latte();
@@ -84,8 +88,10 @@ class CafeKioskTest {
 		cafeKiosk.add(americano);
 		cafeKiosk.add(latte);
 
+		// when
 		int totalPrice = cafeKiosk.calculateTotalPrice();
 
+		// then
 		assertThat(totalPrice).isEqualTo(8500);
 	}
 
@@ -97,7 +103,7 @@ class CafeKioskTest {
 		cafeKiosk.add(americano);
 
 		Order order = cafeKiosk.createOrder();
-		assertThat(order.getBeverages().size()).isEqualTo(1);
+		assertThat(order.getBeverages()).hasSize(1);
 		assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
 	}
 
@@ -109,7 +115,7 @@ class CafeKioskTest {
 		cafeKiosk.add(americano);
 
 		Order order = cafeKiosk.createOrder(LocalDateTime.of(2024, 12, 6, 14, 0));
-		assertThat(order.getBeverages().size()).isEqualTo(1);
+		assertThat(order.getBeverages()).hasSize(1);
 		assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
 	}
 
