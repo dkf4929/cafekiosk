@@ -23,8 +23,8 @@ class ProductRepositoryTest {
     void findAllBySellingStatusIn() {
         // given
         Product product1 = createProduct("001", ProductType.HANDMADE, SellingStatus.SELLING, "아메리카노", 4000);
-        Product product2 = createProduct("002", ProductType.HANDMADE, SellingStatus.SELLING, "라떼", 4500);
-        Product product3 = createProduct("003", ProductType.HANDMADE, SellingStatus.SELLING, "팥빙수", 7000);
+        Product product2 = createProduct("002", ProductType.HANDMADE, SellingStatus.HOLD, "라떼", 4500);
+        Product product3 = createProduct("003", ProductType.HANDMADE, SellingStatus.STOP_SELLING, "팥빙수", 7000);
 
         productRepository.saveAll(List.of(product1, product2, product3));
 
@@ -38,7 +38,7 @@ class ProductRepositoryTest {
                 .extracting("productNumber", "name", "sellingStatus")
                 .containsExactlyInAnyOrder(
                         tuple("001", "아메리카노", SellingStatus.SELLING),
-                        tuple("002", "카페라떼", SellingStatus.HOLD)
+                        tuple("002", "라떼", SellingStatus.HOLD)
                 );
     }
 
@@ -47,7 +47,7 @@ class ProductRepositoryTest {
     void findAllByProductNumberIn() {
         // given
         Product product1 = createProduct("001", ProductType.HANDMADE, SellingStatus.SELLING, "아메리카노", 4000);
-        Product product2 = createProduct("002", ProductType.HANDMADE, SellingStatus.SELLING, "라떼", 4500);
+        Product product2 = createProduct("002", ProductType.HANDMADE, SellingStatus.HOLD, "라떼", 4500);
         Product product3 = createProduct("003", ProductType.HANDMADE, SellingStatus.SELLING, "팥빙수", 7000);
 
         productRepository.saveAll(List.of(product1, product2, product3));
@@ -62,7 +62,7 @@ class ProductRepositoryTest {
                 .extracting("productNumber", "name", "sellingStatus")
                 .containsExactlyInAnyOrder(
                         tuple("001", "아메리카노", SellingStatus.SELLING),
-                        tuple("002", "카페라떼", SellingStatus.HOLD)
+                        tuple("002", "라떼", SellingStatus.HOLD)
                 );
     }
 
