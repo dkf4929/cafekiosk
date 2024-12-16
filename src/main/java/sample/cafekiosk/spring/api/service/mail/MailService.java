@@ -24,6 +24,9 @@ public class MailService {
                         .subject(subject)
                         .build());
         }
+        mailSendClient.a();
+        mailSendClient.b();
+        mailSendClient.c();
 
         return true;
     }
