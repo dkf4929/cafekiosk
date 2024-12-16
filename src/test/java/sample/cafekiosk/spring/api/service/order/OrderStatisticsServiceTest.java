@@ -49,7 +49,7 @@ class OrderStatisticsServiceTest {
 
     @AfterEach
     void tearDown() {
-        orderProductRepository.deleteAll();
+        orderProductRepository.deleteAllInBatch();
         orderRepository.deleteAllInBatch();
         productRepository.deleteAllInBatch();
         mailSendHistoryRepository.deleteAllInBatch();
