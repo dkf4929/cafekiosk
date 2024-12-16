@@ -7,11 +7,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class StockTest {
+    private static final Stock stock = Stock.create("001", 1);
+
     @DisplayName("재고의 수량이 제공된 수량보다 작은지 확인한다.")
     @Test
     void isQuantityLessThan() {
         // given
-        Stock stock = Stock.create("001", 1);
         int quantity = 2;
 
         // when
@@ -25,7 +26,6 @@ class StockTest {
     @Test
     void deductQuantity() {
         // given
-        Stock stock = Stock.create("001", 1);
         int quantity = 1;
 
         // when
@@ -39,7 +39,6 @@ class StockTest {
     @Test
     void deductQuantity2() {
         // given
-        Stock stock = Stock.create("001", 1);
         int quantity = 2;
 
         // when // then
