@@ -131,6 +131,8 @@ class OrderServiceTest {
     @Test
     void createOrder() {
         // given
+        LocalDateTime registeredDateTime = LocalDateTime.now();
+
         Product product1 = createProduct(ProductType.HANDMADE, "001", 1000);
         Product product2 = createProduct(ProductType.HANDMADE, "002", 2000);
         Product product3 = createProduct(ProductType.HANDMADE, "003", 3000);
@@ -142,7 +144,6 @@ class OrderServiceTest {
                 .build();
 
         // when
-        LocalDateTime registeredDateTime = LocalDateTime.now();
         OrderResponse orderResponse = orderService.createOrder(request.toServiceRequest(), registeredDateTime);
 
         // then
