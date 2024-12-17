@@ -17,13 +17,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final ProductNumberFactory productNumberFactory;
 
     @Transactional
     public ProductResponse createProduct(ProductCreateServiceRequest request) {
         // productNumber
         // DB 에서 마지막 저장된 Product의 상품 번호 읽어서 +1
         // 009 -> 010
-        String nextProductNumber = createNextProductNumber();
+        String nextProductNumber = productNumberFactory.createNextProductNumber();
 
         Product product = request.toEntity(nextProductNumber);
         Product savedProduct = productRepository.save(product);
@@ -39,15 +40,4 @@ public class ProductService {
                 .map(ProductResponse::of)
                 .toList();
     }
-
-    private String createNextProductNumber() {
-        String latestProductNumber = productRepository.findLatestProduct();
-        if (latestProductNumber == null) return "001";
-
-        int latestProductNumberInt = Integer.valueOf(latestProductNumber);
-        int nextProductNumberInt = latestProductNumberInt + 1;
-
-        return String.format("%03d", nextProductNumberInt);
-    }
-
 }
